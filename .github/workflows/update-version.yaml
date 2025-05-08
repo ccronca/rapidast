@@ -1,4 +1,4 @@
-name: Update VERSION.txt
+name: Update VERSION.TXT
 
 on:
   pull_request:
@@ -44,17 +44,17 @@ jobs:
             echo "next_version=0.0.1" >> $GITHUB_OUTPUT
           fi
 
-      - name: Update VERSION.txt for development
+      - name: Update VERSION.TXT for development
         run: |
-          echo "Updating VERSION.txt for development branch"
+          echo "Updating VERSION.TXT for development branch"
           echo "Next Version: ${{ steps.calculate_version.outputs.next_version }}"
           short_sha=$(git rev-parse --short "${{ github.sha }}")
-          echo "$(echo -n ${{ steps.calculate_version.outputs.next_version }})+$short_sha-$(date +%Y%m%d)" > VERSION.txt
+          echo "$(echo -n ${{ steps.calculate_version.outputs.next_version }})+$short_sha-$(date +%Y%m%d)" > VERSION.TXT
 
-      - name: Commit and push VERSION.txt
+      - name: Commit and push VERSION.TXT
         run: |
           git config --local user.email "actions@github.com"
           git config --local user.name "GitHub Actions"
-          git add VERSION.txt
-          git commit -m "Update VERSION.txt to ${{ steps.calculate_version.outputs.next_version }} for ${{ github.base_ref }} merge"
+          git add VERSION.TXT
+          git commit -m "Update VERSION.TXT to ${{ steps.calculate_version.outputs.next_version }} for ${{ github.base_ref }} merge"
           git push origin HEAD:development
